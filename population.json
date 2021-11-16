@@ -1,0 +1,11 @@
+[
+    {"country": "Albania", "year": 2015, "new born": 4000, "deaths": 66000, "population": 2890513 },
+    {"country": "Albania", "year": 2016, "new born": 5000, "deaths": 66000, "population": 2842442 },
+    {"country": "Albania", "year": 2017, "new born": 5000, "deaths": 66000, "population": 2833232 },
+    {"country": "Albania", "year": 2018, "new born": 6000, "deaths": 66000, "population": 2882463 },
+    {"country": "Albania", "year": 2019, "new born": 4000, "deaths": 66000, "population": 2884169 },
+    {"country": "Albania", "year": 2020, "new born": 4000, "deaths": 66000, "population": 2882740 },
+    {"country": "Albania", "year": 2021, "new born": 4000, "deaths": 66000, "population": 2880917 },
+    {"country": "Albania", "year": 2022, "new born": 4000, "deaths": 66000, "population": 0 }
+
+]

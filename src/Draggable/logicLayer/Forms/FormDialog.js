@@ -42,11 +42,12 @@ export default function FormDialog({setData, data}) {
     console.log("data", data);
     setTitle("");
     setCaption("");
-     ;}
-     else {
+    setOpen(false);
 
      }
-     setOpen(false)
+     else {
+      alert("You cannot submit empty fields!")
+     }
   }
   useEffect(() => {
     console.log("title", title);

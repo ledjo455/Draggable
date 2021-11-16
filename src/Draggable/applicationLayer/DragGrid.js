@@ -21,8 +21,7 @@ const SortableItem = SortableElement((props) => {
   //   data.splice(indx, 1);
   //   console.log("after delete",data);
   //   }
-
-  return (
+   return (
     <StyledItem>
         <br/>
       <div style={contentStyle}>
