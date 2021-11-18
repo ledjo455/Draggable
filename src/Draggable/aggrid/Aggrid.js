@@ -14,13 +14,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import ReactToPrint from "react-to-print";
 
 function Aggrid() {
-  const [statusInstances, setStatusInstances] = useState(
-    calculateStatusTotal()
-  );
+  const [jsonData, setJsonData] = useState(companydata);
+  const [statusInstances, setStatusInstances] = useState(null);
   const [calculateStatusCall, setCalcStatusCall] = useState(false);
-  const [jsonData, setJsonData] = useState();
+
   // for modal
   const [open, setOpen] = React.useState(false);
   const company_name = useRef(null);
@@ -31,18 +31,42 @@ function Aggrid() {
   const [formObject, setFormObject] = useState(null);
 
   useEffect(() => {
+    setStatusInstances(calculateStatusTotal());
+  }, [jsonData]);
+
+  useEffect(() => {
     console.log(formObject);
   }, [formObject]);
 
   const handleSave = () => {
-    setFormObject({
-      id: 99889,
-      company: company_name.current.value,
-      first_name: first_name.current.value,
-      last_name: last_name.current.value,
-      phone: phone.current.value,
-      status: status.current.value,
-    });
+    if (
+      company_name.current.value &&
+      first_name.current.value &&
+      last_name.current.value &&
+      phone.current.value &&
+      status.current.value
+    ) {
+      setFormObject({
+        id: 99889,
+        company: company_name.current.value,
+        first_name: first_name.current.value,
+        last_name: last_name.current.value,
+        phone: phone.current.value,
+        status: status.current.value,
+      });
+      const debug = statusTest.map((element, index) => {
+        if (element.status === status.current.value) {
+          element.sum = element.sum + 1;
+          console.log(element.sum);
+          statusTest[index].sum = element.sum;
+        }
+      });
+      console.log(debug);
+      console.log("unnamed", company_name.current.value);
+      handleClose();
+    } else {
+      window.alert("You must fill all forms");
+    }
   };
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,30 +82,47 @@ function Aggrid() {
   //
 
   const [passedStatus, setPassedStatus] = useState(null);
-  const [statusTest, setStatusTest] = useState([
-    { status: "converted", color: "#9C89B8", sum: statusInstances.converted },
-    { status: "new", color: "#49516F", sum: statusInstances.new },
-    {
-      status: "unqualified",
-      color: "#FBC14B",
-      sum: statusInstances.unqualified,
-    },
-    { status: "in process", color: "pink", sum: statusInstances.in_process },
-    { status: "needs review", color: "red", sum: statusInstances.needs_review },
-  ]);
+  const [statusTest, setStatusTest] = useState(null);
+  useEffect(() => {
+    if (statusInstances !== null) {
+      setStatusTest([
+        {
+          status: "converted",
+          color: "#9C89B8",
+          sum: statusInstances.converted,
+        },
+        { status: "new", color: "#49516F", sum: statusInstances.new },
+        {
+          status: "unqualified",
+          color: "#FBC14B",
+          sum: statusInstances.unqualified,
+        },
+        {
+          status: "in process",
+          color: "pink",
+          sum: statusInstances.in_process,
+        },
+        {
+          status: "needs review",
+          color: "red",
+          sum: statusInstances.needs_review,
+        },
+      ]);
+    }
+  }, [statusInstances]);
 
   function calculateStatusTotal() {
-    const news = companydata.filter((element) => element.status == "new");
-    const converted = companydata.filter(
+    const news = jsonData.filter((element) => element.status == "new");
+    const converted = jsonData.filter(
       (element) => element.status == "converted"
     );
-    const unqualified = companydata.filter(
+    const unqualified = jsonData.filter(
       (element) => element.status == "unqualified"
     );
-    const process = companydata.filter(
+    const process = jsonData.filter(
       (element) => element.status == "in process"
     );
-    const needs_review = companydata.filter(
+    const needs_review = jsonData.filter(
       (element) => element.status == "needs review"
     );
 
@@ -103,7 +144,7 @@ function Aggrid() {
   return (
     <div className="aggrid__container">
       <div className="aggrid__header">
-        {statusTest.map((element) => (
+        {statusTest?.map((element) => (
           <div>
             {" "}
             <button
@@ -124,6 +165,8 @@ function Aggrid() {
           setPassedStatus={setPassedStatus}
           formObject={formObject}
           setCalcStatusCall={setCalcStatusCall}
+          jsonData={jsonData}
+          setJsonData={setJsonData}
         />
         <div className="modal">
           <Button onClick={handleClickOpen} className="ButtonModal">

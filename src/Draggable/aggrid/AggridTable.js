@@ -6,9 +6,6 @@ import { Grid, Button } from "@mui/material";
 import "ag-grid-enterprise";
 import "./AggridTable.css";
 import companydata from "./companies.json";
-import companydata2 from "./companies.json";
-import { withTheme } from "@emotion/react";
-import { red } from "@mui/material/colors";
 
 export default function RangeSelection({
   passedStatus,
@@ -16,6 +13,8 @@ export default function RangeSelection({
   formObject,
   setCalcStatusCall,
   calculateStatusCall,
+  jsonData,
+  setJsonData,
 }) {
   const statusBar = {
     statusPanels: [
@@ -31,7 +30,7 @@ export default function RangeSelection({
 
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
-  const [rowData, setRowData] = useState(companydata);
+  const [rowData, setRowData] = useState(jsonData);
   const [filterParam, setFilterParam] = useState("new");
 
   const columnDefs = [
@@ -104,7 +103,7 @@ export default function RangeSelection({
   const onGridReady = (params) => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
-    params.api.setRowData(companydata, companydata2);
+    params.api.setRowData(companydata);
   };
 
   const statusFilter = () => {
