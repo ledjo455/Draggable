@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Poppins:ital,wght@1,100&display=swap");
+* {
+  margin: 0;
+  font-family: "Mochiy Pop One", sans-serif;
+}
+
+.aggrid__container {
+  margin-top: 0;
+  background-color: #f6f6f3;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* align-items: center;
+  justify-content: center; */
+  /* flex-direction: column; */
+}
+
+.aggrid__header {
+  background-color: white;
+  margin-top: 20px;
+  margin-left: -20px;
+  width: 180vh;
+  height: 11vh;
+  display: flex;
+  justify-content: center;
+  box-shadow: 5px 5px 15px 5px #76858b;
+  border-radius: 20px;
+  margin-left: 700px;
+  justify-content: space-around;
+  margin-left: 400px;
+}
+
+.aggrid__header__status1 {
+  padding: 20px;
+  background-color: rgb(253, 40, 2);
+  border-radius: 20px;
+  /* margin: 20px; */
+  color: white;
+  width: 220px;
+}
+.aggrid__header__status1 > h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.aggrid__header__status1 > p {
+  display: flex;
+  justify-content: center;
+}
+
+.aggrid__header__status2 {
+  padding: 20px;
+  background-color: rgb(231, 73, 0);
+  border-radius: 20px;
+  margin: 10px 20px 10px 10px;
+  color: white;
+  width: 220px;
+}
+.aggrid__header__status2 > h1 {
+  display: flex;
+  justify-content: center;
+}
+.aggrid__header__status2 > p {
+  display: flex;
+  justify-content: center;
+}
+
+.aggrid__header__status3 {
+  padding: 20px;
+  background-color: rgb(240, 196, 0);
+  border-radius: 20px;
+  margin: 10px 20px 10px 10px;
+  color: white;
+  width: 220px;
+}
+
+.aggrid__header__status3 > h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.aggrid__header__status3 > p {
+  display: flex;
+  justify-content: center;
+}
+
+.aggrid__table {
+  margin-top: 200px;
+  width: 100%;
+}
+
+.aggrid__header__status {
+  padding: 20px;
+  background-color: rgb(251, 92, 0);
+  border-radius: 20px;
+  margin: 10px 20px 10px 10px;
+  color: white;
+  width: 220px;
+  border: none;
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.19);
+  text-transform: capitalize;
+}
+
+.aggrid__header__status:hover {
+  background-color: #15e029 !important;
+}
+
+.modal > Button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(70, 175, 0);
+  margin-top: -1299px;
+  margin-left: -300px;
+}
+
+.modal > Button:hover {
+  background-color: rgb(55, 5, 255);
+}
+
+.modal > Select {
+  margin: 60px;
+  color: white;
+}
