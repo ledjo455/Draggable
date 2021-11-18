@@ -115,6 +115,10 @@ export default function RangeSelection({
     gridApi.onFilterChanged();
   };
 
+  const downloadPdf = () => {
+    window.print();
+  };
+
   const defaultColDef = {
     sortable: true,
     flex: 1,
@@ -144,7 +148,11 @@ export default function RangeSelection({
       </div>
       <div className="table">
         <Grid align="right"></Grid>
-        <Button onClick={handleResetFilter}>RESET</Button>
+        <Button classname="reset" onClick={handleResetFilter}>
+          RESET
+        </Button>{" "}
+        {"         "}
+        <Button onClick={downloadPdf}>Download Pdf</Button>
         <div className="ag-theme-alpine" style={{ height: "400px" }}>
           <AgGridReact
             rowGroupPanelShow={"always"}

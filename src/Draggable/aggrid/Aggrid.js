@@ -14,11 +14,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+
 function Aggrid() {
   const [statusInstances, setStatusInstances] = useState(
     calculateStatusTotal()
   );
   const [calculateStatusCall, setCalcStatusCall] = useState(false);
+  const [jsonData, setJsonData] = useState();
   // for modal
   const [open, setOpen] = React.useState(false);
   const company_name = useRef(null);

@@ -6,7 +6,7 @@
 
 .aggrid__container {
   margin-top: 0;
-  background-color: #f6f6f3;
+  background-color: white;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -20,8 +20,8 @@
   background-color: white;
   margin-top: 20px;
   margin-left: -20px;
-  width: 180vh;
-  height: 11vh;
+  width: 1300px;
+  height: 120px;
   display: flex;
   justify-content: center;
   box-shadow: 5px 5px 15px 5px #76858b;
@@ -36,7 +36,7 @@
   background-color: rgb(253, 40, 2);
   border-radius: 20px;
   /* margin: 20px; */
-  color: white;
+  color: rgb(63, 32, 32);
   width: 220px;
 }
 .aggrid__header__status1 > h1 {
@@ -104,6 +104,8 @@
 
 .aggrid__header__status:hover {
   background-color: #15e029 !important;
+  border: 3px solid black;
+  cursor: pointer;
 }
 
 .modal > Button {
@@ -120,4 +122,16 @@
 .modal > Select {
   margin: 60px;
   color: white;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .aggrid__table {
+    visibility: visible;
+    margin-top: -70px;
+    margin-left: -340px;
+  }
 }

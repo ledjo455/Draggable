@@ -1,9 +1,9 @@
 .table {
   margin-top: 160px;
-  margin-left: -1450px;
-  width: 160vh;
+  margin-left: -1300px;
   justify-self: center;
   box-shadow: 5px 5px 15px 5px #76858b;
+  width: 1300px;
 }
 
 .filter__header {
@@ -13,8 +13,8 @@
   box-shadow: 5px 5px 15px 5px #76858b;
   border-radius: 20px;
   color: white;
-  width: 120vh;
-  height: 7vh;
+  width: 1300px;
+  height: 80px;
   display: flex;
 }
 .filter__header > button {
@@ -61,4 +61,18 @@
 
 .rag-green {
   color: "red";
+}
+
+@media print {
+  .table * {
+    visibility: visible;
+  }
+
+  .table.reset {
+    visibility: hidden;
+  }
+
+  /* @page {
+    margin: 0.5cm;
+  } */
 }
