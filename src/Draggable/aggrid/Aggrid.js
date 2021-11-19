@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import ReactToPrint from "react-to-print";
+import * as moment from "moment";
 
 function Aggrid() {
   const [jsonData, setJsonData] = useState(companydata);
@@ -29,6 +30,9 @@ function Aggrid() {
   const phone = useRef(null);
   const status = useRef(null);
   const [formObject, setFormObject] = useState(null);
+  const [increment, setIncrement] = useState(
+    jsonData[jsonData.length - 1].id + 1
+  );
 
   useEffect(() => {
     setStatusInstances(calculateStatusTotal());
@@ -38,7 +42,11 @@ function Aggrid() {
     console.log(formObject);
   }, [formObject]);
 
-  const handleSave = () => {
+  const handleSave = (event) => {
+    var timestamp = Math.round(+new Date() / 1000);
+    var formated_date = moment.unix(timestamp).format("MM/DD/YYYY HH:mm:ss");
+
+    setIncrement(increment + 1);
     if (
       company_name.current.value &&
       first_name.current.value &&
@@ -47,12 +55,13 @@ function Aggrid() {
       status.current.value
     ) {
       setFormObject({
-        id: 99889,
+        id: increment,
         company: company_name.current.value,
         first_name: first_name.current.value,
         last_name: last_name.current.value,
         phone: phone.current.value,
         status: status.current.value,
+        created: timestamp,
       });
       const debug = statusTest.map((element, index) => {
         if (element.status === status.current.value) {
@@ -63,9 +72,11 @@ function Aggrid() {
       });
       console.log(debug);
       console.log("unnamed", company_name.current.value);
+      console.log("full", formObject);
       handleClose();
     } else {
       window.alert("You must fill all forms");
+      console.log("timestamp", timestamp, "formated", formated_date);
     }
   };
   const handleClickOpen = () => {
@@ -170,7 +181,7 @@ function Aggrid() {
         />
         <div className="modal">
           <Button onClick={handleClickOpen} className="ButtonModal">
-            ADD New Company
+            <p>ADD New Company | +</p>
           </Button>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add New Jobsites</DialogTitle>

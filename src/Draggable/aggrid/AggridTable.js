@@ -6,6 +6,8 @@ import { Grid, Button } from "@mui/material";
 import "ag-grid-enterprise";
 import "./AggridTable.css";
 import companydata from "./companies.json";
+import * as moment from "moment";
+import Filter from "./Filter";
 
 export default function RangeSelection({
   passedStatus,
@@ -28,13 +30,34 @@ export default function RangeSelection({
     ],
   };
 
+  const dateFormatter = (params) => {
+    return moment.unix(params.value).format("MM/DD/YYYY HH:mm:ss");
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState(jsonData);
   const [filterParam, setFilterParam] = useState("new");
+  const [filterModal, setFilterModal] = useState(null);
+  const [unique, setUnique] = useState(null);
 
   const columnDefs = [
-    { headerName: "Company", field: "company", enableRowGroup: true },
+    {
+      headerName: "Company",
+      field: "company",
+      enableRowGroup: true,
+      floatingFilter: true,
+    },
     { headerName: "First Name", field: "first_name", enableRowGroup: true },
     { headerName: "Last Name", field: "last_name", enableRowGroup: true },
     { headerName: "Phone", field: "phone", enableRowGroup: true },
@@ -43,6 +66,12 @@ export default function RangeSelection({
       field: "status",
       enableRowGroup: true,
       cellClass: cellClass,
+    },
+    {
+      headerName: "Created at",
+      field: "created",
+      valueFormatter: dateFormatter,
+      enableRowGroup: true,
     },
 
     // {
@@ -80,6 +109,7 @@ export default function RangeSelection({
   useEffect(() => {
     if (passedStatus != null) {
       var statusFilterComponent = gridApi.getFilterInstance("status");
+      console.log("statusfilter component", statusFilterComponent);
       statusFilterComponent.setModel({
         values: [passedStatus],
       });
@@ -87,12 +117,25 @@ export default function RangeSelection({
     }
   }, [passedStatus]);
 
+  useEffect(() => {
+    if (filterModal != null) {
+      console.log("RENDERED");
+      var FilterComponent = gridApi.getFilterInstance("first_name");
+      FilterComponent.setModel({
+        values: [filterModal],
+      });
+      gridApi.onFilterChanged();
+    }
+  }, [filterModal, setFilterModal]);
+
   //   const onGridReady = (params) => {
   //     setGridApi(params);
   //   };
   useEffect(() => {
     if (formObject !== null) {
-      const newitem = [formObject];
+      console.log("efekti", formObject);
+      let newitem = [formObject];
+      console.log("efekti 2", newitem);
       gridApi.applyTransaction({
         add: newitem,
       });
@@ -106,13 +149,13 @@ export default function RangeSelection({
     params.api.setRowData(companydata);
   };
 
-  const statusFilter = () => {
-    var statusFilterComponent = gridApi.getFilterInstance("status");
-    statusFilterComponent.setModel({
-      values: [passedStatus],
-    });
-    gridApi.onFilterChanged();
-  };
+  // const statusFilter = () => {
+  //   var statusFilterComponent = gridApi.getFilterInstance("status");
+  //   statusFilterComponent.setModel({
+  //     values: [passedStatus],
+  //   });
+  //   gridApi.onFilterChanged();
+  // };
 
   const downloadPdf = () => {
     window.print();
@@ -123,6 +166,7 @@ export default function RangeSelection({
     flex: 1,
     filter: true,
     floatingFilter: true,
+    resizeble: true,
   };
 
   const onFilterTextBoxChanged = (e) => {
@@ -138,7 +182,12 @@ export default function RangeSelection({
   return (
     <div>
       <div className="filter__header">
-        <button onClick={handleResetFilter}>Clear</button>
+        <Filter
+          filterModal={filterModal}
+          setFilterModal={setFilterModal}
+          unique={unique}
+        />
+        <button onClick={handleResetFilter}> Clear</button>
         <input
           type="text"
           placeholder="Search..."
@@ -163,6 +212,7 @@ export default function RangeSelection({
             enableRangeSelection={true}
             suppressDragLeaveHidesColumns={true}
             suppressMakeColumnVisibleAfterUnGroup={true}
+
             // rowSelection={'single'}
           />
         </div>
